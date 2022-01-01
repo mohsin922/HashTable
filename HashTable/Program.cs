@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HashTable
 {
@@ -6,20 +8,32 @@ namespace HashTable
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Hash Table!");
-            MyMapNode<string, string> hash = new MyMapNode<string, string>(5);
-            hash.Add("0", "To");
-            hash.Add("1", "be");
-            hash.Add("2", "or");
-            hash.Add("3", "not");
-            hash.Add("4", "to");
-            hash.Add("5", "be");
 
-            Console.WriteLine("Frequency of \'to\'  : " + hash.GetFrequencyOfWords("to"));
-            Console.WriteLine("Frequency of \'be\' : " + hash.GetFrequencyOfWords("be"));
-            Console.WriteLine("Frequency of \'or\' : " + hash.GetFrequencyOfWords("or"));
-            Console.WriteLine("Frequency of \'not\' : " + hash.GetFrequencyOfWords("not"));
+            MyMapNode<string, int> myMap = new MyMapNode<string, int>(10);
+            string[] Paragraph;
+            string input = "Paranoids are not paranoid because they are paranoid but because they keep putting themselves deliberately into paranoid avoidable situations";
+            Paragraph = input.Split(' ');
+            //Given string input
 
+            int counts = 1;
+            foreach (string i in Paragraph)
+            {
+                counts = myMap.CheckHash(i);
+                if (counts > 1)
+                {
+                    myMap.Add(i, counts);
+                }
+                else
+                {
+                    myMap.Add(i, 1);
+                }
+            }
+            Console.WriteLine("Frequency of words in paragraph");
+            IEnumerable<string> distinct = Paragraph.Distinct<string>();
+            foreach (var i in distinct)
+            {
+                myMap.Display(i);
+            }
         }
     }
 }
